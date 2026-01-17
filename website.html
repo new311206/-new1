@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จิตรภาณุ - Personal Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== Global Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Prompt', 'Kanit', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ===== Container Layout ===== */
+        .container {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            flex: 0 0 25%;
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        /* ===== Glassmorphism Cards ===== */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 
+                0 8px 32px rgba(31, 38, 135, 0.37),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            margin-bottom: 1.5rem;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(76, 175, 80, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 
+                0 16px 48px rgba(76, 175, 80, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== Sidebar Styles ===== */
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #4CAF50, #8a2be2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin: 0 auto 1.5rem;
+            border: 3px solid rgba(76, 175, 80, 0.5);
+            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+            animation: profileGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes profileGlow {
+            0%, 100% { box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3); }
+            50% { box-shadow: 0 8px 32px rgba(76, 175, 80, 0.6); }
+        }
+
+        .profile-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-info h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #4CAF50, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .profile-info .title {
+            font-size: 0.95rem;
+            color: #a8a8a8;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .profile-info .bio {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
+            word-break: break-word;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .contact-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.4);
+            color: #4CAF50;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .contact-links a:hover {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: rgba(76, 175, 80, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
+        }
+
+        /* ===== Main Content Styles ===== */
+        .resume-card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #4CAF50, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .typing-effect {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #4CAF50;
+            min-height: 2.5rem;
+            margin: 1.5rem 0;
+            line-height: 1.6;
+        }
+
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.2rem;
+            background: rgba(76, 175, 80, 0.08);
+            border-radius: 10px;
+            border-left: 3px solid #4CAF50;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-item:hover {
+            background: rgba(76, 175, 80, 0.15);
+            transform: translateX(5px);
+        }
+
+        .highlight-item span:first-child {
+            font-size: 1.3rem;
+        }
+
+        .highlight-item span:last-child {
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+
+        /* ===== Projects Grid ===== */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #4CAF50, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(76, 175, 80, 0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(76, 175, 80, 0.4);
+        }
+
+        .project-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: #4CAF50;
+            font-weight: 700;
+        }
+
+        .project-card p {
+            color: #a8a8a8;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.4);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #4CAF50;
+            font-weight: 500;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, #4CAF50, #8a2be2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            align-self: fit-content;
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+            border-color: rgba(76, 175, 80, 0.6);
+        }
+
+        /* ===== Contribution Graph ===== */
+        .contribution-container {
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .contribution-grid {
+            display: inline-grid;
+            grid-template-columns: repeat(52, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 4px;
+            min-width: fit-content;
+        }
+
+        .contribution-cell {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .contribution-cell:hover {
+            background: rgba(76, 175, 80, 0.6);
+            transform: scale(1.2);
+            z-index: 10;
+        }
+
+        .contribution-cell.level-1 {
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        .contribution-cell.level-2 {
+            background: rgba(76, 175, 80, 0.4);
+        }
+
+        .contribution-cell.level-3 {
+            background: rgba(76, 175, 80, 0.6);
+        }
+
+        .contribution-cell.level-4 {
+            background: rgba(76, 175, 80, 0.8);
+        }
+
+        .contribution-tooltip {
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #4CAF50;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+        }
+
+        .contribution-cell:hover .contribution-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 968px) {
+            .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .sidebar {
+                flex: 1;
+                position: relative;
+                top: 0;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                margin-top: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+                border-radius: 15px;
+            }
+
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                font-size: 3rem;
+            }
+
+            .profile-info h1 {
+                font-size: 1.5rem;
+            }
+
+            .resume-card h2 {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .typing-effect {
+                font-size: 1rem;
+                min-height: 2rem;
+            }
+
+            .highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card,
+        .project-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .card:nth-child(n) {
+            animation-delay: calc(n * 0.1s);
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(76, 175, 80, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(76, 175, 80, 0.3);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(76, 175, 80, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ===== SIDEBAR ===== -->
+        <div class="sidebar">
+            <div class="card">
+                <div class="profile-image"></div>
+                <div class="profile-info">
+                    <h1>จิตรภาณุ</h1>
+                    <p class="title">ด็อกเตอร์ศาสตร์ตราจาร์ จิตรภาณุ</p>
+                    <p class="bio">HELLOWORLD("printf")</p>
+                </div>
+
+                <div class="contact-links">
+                    <a href="https://github.com" title="GitHub" aria-label="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:your@email.com" title="Email" aria-label="Email">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com" title="LinkedIn" aria-label="LinkedIn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.728-2.004 1.431-.103.25-.129.599-.129.948v5.426h-3.554s.05-8.736 0-9.646h3.554v1.348c.43-.664 1.199-1.61 2.919-1.61 2.135 0 3.734 1.39 3.734 4.38v5.528zM5.337 9.342c-1.146 0-1.887-.762-1.887-1.722 0-.96.74-1.72 1.926-1.72 1.184 0 1.888.76 1.909 1.72 0 .96-.725 1.722-1.948 1.722zm-1.581 11.11h3.164V9.696H3.756v10.756zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="#" title="Location" aria-label="Location">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content">
+            <!-- ===== RESUME SECTION ===== -->
+            <div class="card resume-card">
+                <h2>สวัสดี! ผมชื่อ จิตรภาณุ 👋</h2>
+                <div class="typing-effect" id="typingEffect"></div>
+
+                <div class="highlights">
+                    <div class="highlight-item">
+                        <span>💻</span>
+                        <span>Web Development</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span>🚀</span>
+                        <span>Frontend Focus</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span>🎓</span>
+                        <span>Continuous Learning</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span>✨</span>
+                        <span>UI/UX Design</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span>🔧</span>
+                        <span>Problem Solving</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span>🌐</span>
+                        <span>Tech Enthusiast</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== PROJECTS SECTION ===== -->
+            <h2 class="section-title">🎯 โปรเจกต์เด่น</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>E-Commerce Platform</h3>
+                    <p>แพลตฟอร์มขายสินค้าออนไลน์แบบเต็มรูปแบบด้วยระบบชำระเงินและจัดการสินค้า</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                    <a href="#" class="project-link">ดูโปรเจกต์ →</a>
+                </div>
+
+                <div class="project-card">
+                    <h3>Task Management App</h3>
+                    <p>แอปพลิเคชันจัดการงานที่มีฟีเจอร์ตั้งลำดับความสำคัญและการติดตามความคืบหน้า</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">DOM API</span>
+                        <span class="tag">LocalStorage</span>
+                    </div>
+                    <a href="#" class="project-link">ดูโปรเจกต์ →</a>
+                </div>
+
+                <div class="project-card">
+                    <h3>Weather Dashboard</h3>
+                    <p>แดชบอร์ดแสดงข้อมูลสภาพอากาศแบบเรียลไทม์พร้อมแผนที่เชิงโต้ตอบ</p>
+                    <div class="project-tags">
+                        <span class="tag">API Integration</span>
+                        <span class="tag">Chart.js</span>
+                        <span class="tag">Responsive</span>
+                    </div>
+                    <a href="#" class="project-link">ดูโปรเจกต์ →</a>
+                </div>
+
+                <div class="project-card">
+                    <h3>Personal Blog</h3>
+                    <p>บล็อกส่วนตัวสำหรับแชร์ความรู้เกี่ยวกับการพัฒนาเว็บและเทคโนโลยีใหม่</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">SEO</span>
+                    </div>
+                    <a href="#" class="project-link">ดูโปรเจกต์ →</a>
+                </div>
+            </div>
+
+            <!-- ===== CONTRIBUTION GRAPH ===== -->
+            <h2 class="section-title" style="margin-top: 3rem;">📊 บันทึกการมีส่วนร่วม</h2>
+            <div class="card">
+                <p style="font-size: 0.9rem; color: #a8a8a8; margin-bottom: 1.5rem;">ความหนาแน่นของกิจกรรมในปีที่ผ่านมา</p>
+                <div class="contribution-container">
+                    <div class="contribution-grid" id="contributionGraph"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== TYPING EFFECT =====
+        const typingTexts = [
+            'ผมชอบซื้อเกมแล้วไม่เล่น.',
+            'ผมเชี่ยวชาญในการสร้างbug',
+            'ผมมีความหลงใหลในการใช้เงิน',
+            'ผมต้องการเป็หมาป่าเดียวดาย'
+        ];
+
+        let currentTextIndex = 0;
+        let currentCharIndex = 0;
+        const typingElement = document.getElementById('typingEffect');
+        const typingSpeed = 50;
+        const delayBetweenTexts = 3000;
+
+        function typeText() {
+            const currentText = typingTexts[currentTextIndex];
+            
+            if (currentCharIndex < currentText.length) {
+                typingElement.textContent += currentText[currentCharIndex];
+                currentCharIndex++;
+                setTimeout(typeText, typingSpeed);
+            } else {
+                currentTextIndex = (currentTextIndex + 1) % typingTexts.length;
+                currentCharIndex = 0;
+                setTimeout(() => {
+                    typingElement.textContent = '';
+                    typeText();
+                }, delayBetweenTexts);
+            }
+        }
+
+        typeText();
+
+        // ===== CONTRIBUTION GRAPH GENERATOR =====
+        function generateContributionGraph() {
+            const graph = document.getElementById('contributionGraph');
+            const cellsNeeded = 52 * 7; // 52 weeks x 7 days
+
+            for (let i = 0; i < cellsNeeded; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'contribution-cell';
+                
+                // Random contribution level (0-4)
+                const level = Math.floor(Math.random() * 5);
+                if (level > 0) {
+                    cell.classList.add(`level-${level}`);
+                }
+
+                // Generate random date
+                const randomDays = Math.floor(Math.random() * 365);
+                const date = new Date();
+                date.setDate(date.getDate() - randomDays);
+                
+                // Add tooltip
+                const tooltip = document.createElement('span');
+                tooltip.className = 'contribution-tooltip';
+                tooltip.textContent = `${level * 2} contributions on ${date.toLocaleDateString('th-TH')}`;
+                cell.appendChild(tooltip);
+
+                graph.appendChild(cell);
+            }
+        }
+
+        generateContributionGraph();
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .project-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
